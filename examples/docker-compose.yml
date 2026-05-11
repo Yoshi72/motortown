@@ -22,8 +22,11 @@ services:
       - ENABLE_WEB_API=false                        # (Enables the web api interface.)
       - WEB_API_PASSWORD=""                         # (Set a web interface password.)
       - WEB_API_PORT=8080                           # (Set the port for the web interface.)
+      # Steam User information
+      - STEAM_USER=""
+      - STEAM_PASSWORD=""
     volumes:
-      - motortown:/home/steam/motortown-dedicated/  # Persistent data volume mount point inside container
+      - motortown:/home/apogee/motortown/data  # Persistent data volume mount point inside container
     ports:
       - "27015:27015/tcp"           # TCP
       - "27015:27015/udp"           # UDP
