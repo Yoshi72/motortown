@@ -33,6 +33,7 @@ RUN set -x \
                 libicu-dev \
                 unzip \
 		jq \
+		wine \
 	&& mkdir -p "${STEAMAPPDIR}" \
 	# Add entry script
 	&& chmod +x "${HOMEDIR}/entry.sh" \
