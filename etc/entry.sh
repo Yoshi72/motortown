@@ -52,8 +52,9 @@ ln -sfT ${STEAMCMDDIR}/linux64/steamclient.so ~/.steam/sdk64/steamclient.so
 mkdir -p $STEAMAPPDIR/game/motortown/cfg
 cp /etc/DedicatedServerConfig_Sample.json "${STEAMAPPDIR}"/game/motortown/cfg/DedicatedServerConfig_Sample.json
 
+# Install hooks if they don't already exist
 if [[ ! -f "${STEAMAPPDIR}/DedicatedServerConfig.json" ]] ; then
-    cp "${STEAMAPPDIR}"/game/motortown/cfg/DedicatedServerConfig_Sample.json "${STEAMAPPDIR}"DedicatedServerConfig.json
+    cp /etc/DedicatedServerConfig_Sample.json "${STEAMAPPDIR}/DedicatedServerConfig.json"
 fi
 
 # Install hooks if they don't already exist
