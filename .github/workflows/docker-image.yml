@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Build the Docker image
       working-directory: .
-      run: docker build . --file Dockerfile --tag machentertainment/motortown:latest
+      run: docker build . --file Dockerfile --tag shirakami72/motortown:latest
