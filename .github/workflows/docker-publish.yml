@@ -51,7 +51,7 @@ jobs:
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v7 # v5.0.0
+        uses: docker/metadata-action@v4 # v5.0.0
         with:
           images: ${{ env.REGISTRY }}/machentertainment/motortown
           tags: |
