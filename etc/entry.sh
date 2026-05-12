@@ -125,7 +125,7 @@ source "${STEAMAPPDIR}/pre.sh"
 # Start Server
 
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
-eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" app_run "${STEAMAPPID}" -beta beta -betapassword motortowndedi
+eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +app_run "${STEAMAPPID}"
 
 # Post Hook
 source "${STEAMAPPDIR}/post.sh"
