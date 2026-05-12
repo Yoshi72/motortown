@@ -120,7 +120,7 @@ source "${STEAMAPPDIR}/pre.sh"
 # Start Server
 
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
-eval bash "${STEAMAPPDIR}/RunDedicatedServer.bat"
+eval bash /home/steam/steamcmd/compatibilitytools.d/GE-Proton9-18/proton run "${STEAMAPPDIR}/RunDedicatedServer.bat"
 
 # Post Hook
 source "${STEAMAPPDIR}/post.sh"
