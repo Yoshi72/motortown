@@ -52,6 +52,10 @@ ln -sfT ${STEAMCMDDIR}/linux64/steamclient.so ~/.steam/sdk64/steamclient.so
 mkdir -p $STEAMAPPDIR/game/motortown/cfg
 cp /etc/DedicatedServerConfig_Sample.json "${STEAMAPPDIR}"/game/motortown/cfg/DedicatedServerConfig_Sample.json
 
+if [[ ! -f "${STEAMAPPDIR}/DedicatedServerConfig.json" ]] ; then
+    cp "${STEAMAPPDIR}"/game/motortown/cfg/DedicatedServerConfig_Sample.json "${STEAMAPPDIR}"DedicatedServerConfig.json
+fi
+
 # Install hooks if they don't already exist
 if [[ ! -f "${STEAMAPPDIR}/pre.sh" ]] ; then
     cp /etc/pre.sh "${STEAMAPPDIR}/pre.sh"
@@ -109,7 +113,7 @@ sed -i -e "s/{{SERVER_HOSTNAME}}/${SERVER_HOSTNAME}/g" \
        -e "s/{{ENABLE_WEB_API}}/${ENABLE_WEB_API}/g" \
        -e "s/{{WEB_API_PASSWORD}}/${WEB_API_PASSWORD}/g" \
        -e "s/{{WEB_API_PORT}}/${WEB_API_PORT}/g" \
-       "${STEAMAPPDIR}"/game/motortown/cfg/DedicatedServerConfig_Sample.json
+       "${STEAMAPPDIR}"/DedicatedServerConfig.json
 
 # Switch to server directory
 cd "${STEAMAPPDIR}/game/bin/linuxsteamrt64"
