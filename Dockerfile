@@ -20,6 +20,14 @@ ENV STEAMAPPVALIDATE=0
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # Core utilities
     python3 \
+	ca-certificates \
+	winbind \
+	dbus \
+	libfreetype6 \
+	curl \
+	jq \
+	locales \
+	lib32gcc-s1
 	# Wine for wineboot initialization
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
