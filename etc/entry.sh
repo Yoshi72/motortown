@@ -45,6 +45,14 @@ if [[ $steamcmd_rc != 0 ]]; then
     exit $steamcmd_rc
 fi
 
+mkdir -p ${STEAMCMDDIR}/compatibilitytools.d \
+    && curl -sL "https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest" \
+    | grep "browser_download_url.*tar.gz" \
+    | cut -d '"' -f 4 \
+    | head -n 1 \
+    | xargs curl -sL \
+    | tar -xz -C ${STEAMCMDDIR}/compatibilitytools.d
+
 # steamclient.so fix
 mkdir -p ~/.steam/sdk64
 ln -sfT ${STEAMCMDDIR}/linux64/steamclient.so ~/.steam/sdk64/steamclient.so
