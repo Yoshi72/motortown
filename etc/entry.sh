@@ -100,6 +100,7 @@ export_proton_path() {
 }
 
 echo "Checking GE-Proton installation..."
+local download_url=""
 if ! detect_proton; then
     echo "GE-Proton not found!"
     echo "Downloading latest GE-Proton..."
@@ -108,7 +109,7 @@ if ! detect_proton; then
 	echo "Compat folder created"
 
     # Get latest GE-Proton release
-    local download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
+    download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
         | jq -r '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url' \
         | head -n 1)
 
