@@ -33,6 +33,7 @@ while [[ $steamcmd_rc != 0 ]] && [[ $attempt -lt $MAX_ATTEMPTS ]]; do
     eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}"\
                                 +force_install_dir "${STEAMAPPDIR}" \
                                 +@bClientTryRequestManifestWithoutCode 1 \
+								+@sSteamCmdForcePlatformType windows \
 				+login ${STEAM_USER} ${STEAM_PASSWORD} ${GUARD_CODE}\
 				+app_update ${STEAMAPPID} -beta beta -betapassword motortowndedi ${VALIDATE}\
 				+quit 
@@ -125,7 +126,7 @@ source "${STEAMAPPDIR}/pre.sh"
 # Start Server
 
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
-eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +app_run "${STEAMAPPID}"
+eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
 
 # Post Hook
 source "${STEAMAPPDIR}/post.sh"
