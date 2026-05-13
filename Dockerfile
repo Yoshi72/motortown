@@ -23,11 +23,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	wine64 \
 	wine32 \
 	winbind \
-	# 32-bit libraries for Steam/Proton
-	lib32gcc-s1 \
-	lib32stdc++6 \
-	libgl1:i386 \
-	libgl1-mesa-dri:i386 \
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
