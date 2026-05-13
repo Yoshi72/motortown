@@ -117,6 +117,8 @@ if ! detect_proton; then
 		download_url="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz"
 	fi
 
+	echo "Download url: $download_url"
+	download_url="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz"
     if [[ -n "$download_url" ]]; then
         echo "Downloading from: $download_url"
         curl -sL "$download_url" | tar -xz -C "${STEAMAPPDIR}/compatibilitytools.d"
