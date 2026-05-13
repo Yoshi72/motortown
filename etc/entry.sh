@@ -104,16 +104,17 @@ if ! detect_proton; then
     echo "GE-Proton not found!"
     echo "Downloading latest GE-Proton..."
 
-    mkdir -p ${STEAMAPPDIR}/compatibilitytools.d
+    mkdir -p "${STEAMAPPDIR}/compatibilitytools.d"
+	echo "Compat folder created"
 
     # Get latest GE-Proton release
-    download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
+    local download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
         | jq -r '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url' \
         | head -n 1)
 
     if [[ -n "$download_url" ]]; then
         echo "Downloading from: $download_url"
-        curl -sL "$download_url" | tar -xz -C ${STEAMAPPDIR}/compatibilitytools.d
+        curl -sL "$download_url" | tar -xz -C "${STEAMAPPDIR}/compatibilitytools.d"
         echo "GE-Proton installed"
     else
         echo "Failed to get GE-Proton download URL"
