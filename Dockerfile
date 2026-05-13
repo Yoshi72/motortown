@@ -20,9 +20,6 @@ ENV STEAMAPPVALIDATE=0
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	python3 \
 	# Wine for wineboot initialization
-	wine64 \
-	wine32 \
-	winbind \
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
