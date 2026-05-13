@@ -18,28 +18,16 @@ ENV STEAMAPPDIR="${HOMEDIR}/${STEAMAPP}-dedicated"
 ENV STEAMAPPVALIDATE=0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    # Wine for wineboot initialization
-    wine64 \
-    wine32 \
-    winbind \
-    # 32-bit libraries for Steam/Proton
-    lib32gcc-s1 \
-    lib32stdc++6 \
-    libgl1:i386 \
-    libgl1-mesa-dri:i386 \
-    # X11 libraries for Proton (64-bit)
-    libxcomposite1 \
-    libxcursor1 \
-    libxdamage1 \
-    libxi6 \
-    libxrandr2 \
-    libxss1 \
-    libxtst6 \
-    libfreetype6 \
-    libxxf86vm1 \
-    libgl1-mesa-dri \
-    libgl1 \
+	python3 \
+	# Wine for wineboot initialization
+	wine64 \
+	wine32 \
+	winbind \
+	# 32-bit libraries for Steam/Proton
+	lib32gcc-s1 \
+	lib32stdc++6 \
+	libgl1:i386 \
+	libgl1-mesa-dri:i386 \
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
