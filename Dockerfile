@@ -27,9 +27,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     file \
     cron \
-    # Wine for wineboot initialization
-    wine64 \
-    wine32 \
+    # 32-bit libraries for Steam/Proton
+    lib32gcc-s1 \
+    lib32stdc++6 \
+    libgl1:i386 \
+    libgl1-mesa-dri:i386 \
 	# Wine for wineboot initialization
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
