@@ -18,14 +18,7 @@ ENV STEAMAPPDIR="${HOMEDIR}/${STEAMAPP}-dedicated"
 ENV STEAMAPPVALIDATE=0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    wget \
-    jq \
     python3 \
-    procps \
-    file \
-    cron \
     # Wine for wineboot initialization
     wine64 \
     wine32 \
