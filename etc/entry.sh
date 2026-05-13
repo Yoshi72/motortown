@@ -177,8 +177,7 @@ detect_proton
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=${STEAMAPPDIR}/.compatdata2
 export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}"
-#! /usr/bin/env python
-eval bash "$PROTONPATH/proton run RunDedicatedServer.bat" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
+eval "$PROTONPATH/proton run RunDedicatedServer.bat" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
 #eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
 
 # Post Hook
