@@ -4,7 +4,7 @@
 
 # BUILD STAGE
 
-FROM cm2network/steamcmd:root-bookworm AS wine-base
+FROM cm2network/steamcmd:root-bookworm AS build_stage
 
 # LABEL maintainer="joedwards32@gmail.com"
 # LABEL maintainer="mmenistr@gmail.com"
