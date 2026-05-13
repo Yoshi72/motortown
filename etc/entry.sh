@@ -45,13 +45,27 @@ if [[ $steamcmd_rc != 0 ]]; then
     exit $steamcmd_rc
 fi
 
-mkdir -p ${STEAMCMDDIR}/compatibilitytools.d \
-    && curl -sL "https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest" \
-    | grep "browser_download_url.*tar.gz" \
-    | cut -d '"' -f 4 \
-    | head -n 1 \
-    | xargs curl -sL \
-    | tar -xz -C ${STEAMCMDDIR}/compatibilitytools.d
+log_info "Checking GE-Proton installation..."
+if ! detect_proton; then
+    log_error "GE-Proton not found!"
+    log_info "Downloading latest GE-Proton..."
+
+    mkdir -p /root/.steam/steam/compatibilitytools.d
+
+    # Get latest GE-Proton release
+    download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
+        | jq -r '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url' \
+        | head -n 1)
+
+    if [[ -n "$download_url" ]]; then
+        log_info "Downloading from: $download_url"
+        curl -sL "$download_url" | tar -xz -C /root/.steam/steam/compatibilitytools.d
+        log_success "GE-Proton installed"
+    else
+        log_error "Failed to get GE-Proton download URL"
+        exit 1
+    fi
+fi
 
 # steamclient.so fix
 mkdir -p ~/.steam/sdk64
