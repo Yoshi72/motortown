@@ -4,7 +4,7 @@
 
 # BUILD STAGE
 
-FROM cm2network/steamcmd:root-bookworm AS build_stage
+FROM cm2network/steamcmd:root-bookworm AS wine-base
 
 # LABEL maintainer="joedwards32@gmail.com"
 # LABEL maintainer="mmenistr@gmail.com"
@@ -19,19 +19,7 @@ ENV STEAMAPPVALIDATE=0
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     # Core utilities
-    ca-certificates \
-    curl \
-    wget \
-    jq \
     python3 \
-    procps \
-    file \
-    cron \
-    # 32-bit libraries for Steam/Proton
-    lib32gcc-s1 \
-    lib32stdc++6 \
-    libgl1:i386 \
-    libgl1-mesa-dri:i386 \
 	# Wine for wineboot initialization
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
