@@ -45,10 +45,64 @@ if [[ $steamcmd_rc != 0 ]]; then
     exit $steamcmd_rc
 fi
 
-log_info "Checking GE-Proton installation..."
+detect_proton() {
+    # Search for GE-Proton in compatibility tools directory
+    local compat_dir="${STEAMAPPDIR}/compatibilitytools.d"
+
+    if [[ -d "$compat_dir" ]]; then
+        # Find all GE-Proton versions
+        local proton_versions=($(find "$compat_dir" -maxdepth 1 -type d -name "GE-Proton*" | sort -V))
+
+        if [[ ${#proton_versions[@]} -gt 0 ]]; then
+            # Return the latest version
+            PROTONPATH="${proton_versions[-1]}"
+            echo "Found GE-Proton: $PROTONPATH"
+            return 0
+        fi
+    fi
+
+    # Fallback: check system Proton
+    if [[ -f "/usr/bin/proton" ]]; then
+        PROTONPATH="/usr/bin"
+        echo "Using system Proton"
+        return 0
+    fi
+
+    echo "No Proton installation found!"
+    return 1
+}
+
+get_proton_executable() {
+    local compat_dir="${STEAMAPPDIR}/compatibilitytools.d"
+
+    if [[ -d "$compat_dir" ]]; then
+        local proton_versions=($(find "$compat_dir" -maxdepth 1 -type d -name "GE-Proton*" | sort -V))
+
+        if [[ ${#proton_versions[@]} -gt 0 ]]; then
+            echo "${proton_versions[-1]}/proton"
+            return 0
+        fi
+    fi
+
+    # Fallback: check system Proton
+    if [[ -f "/usr/bin/proton" ]]; then
+        echo "/usr/bin/proton"
+        return 0
+    fi
+
+    return 1
+}
+
+# Export PROTONPATH for use in other scripts
+export_proton_path() {
+    detect_proton
+    export PROTONPATH
+}
+
+echo "Checking GE-Proton installation..."
 if ! detect_proton; then
-    log_error "GE-Proton not found!"
-    log_info "Downloading latest GE-Proton..."
+    echo "GE-Proton not found!"
+    echo "Downloading latest GE-Proton..."
 
     mkdir -p ${STEAMAPPDIR}/compatibilitytools.d
 
@@ -58,11 +112,11 @@ if ! detect_proton; then
         | head -n 1)
 
     if [[ -n "$download_url" ]]; then
-        log_info "Downloading from: $download_url"
+        echo "Downloading from: $download_url"
         curl -sL "$download_url" | tar -xz -C ${STEAMAPPDIR}/compatibilitytools.d
-        log_success "GE-Proton installed"
+        echo "GE-Proton installed"
     else
-        log_error "Failed to get GE-Proton download URL"
+        echo "Failed to get GE-Proton download URL"
         exit 1
     fi
 fi
