@@ -17,6 +17,11 @@ ENV STEAMAPP="motortown"
 ENV STEAMAPPDIR="${HOMEDIR}/${STEAMAPP}-dedicated"
 ENV STEAMAPPVALIDATE=0
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	python3 \
+	&& rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
 COPY etc/entry.sh "${HOMEDIR}/entry.sh"
 COPY etc/DedicatedServerConfig_Sample.json "/etc/DedicatedServerConfig_Sample.json"
 COPY etc/pre.sh "/etc/pre.sh"
