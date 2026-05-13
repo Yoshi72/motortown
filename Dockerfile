@@ -23,11 +23,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	# Wine for wineboot initialization
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
-
-RUN rm -f /etc/machine-id /var/lib/dbus/machine-id \
-    && dbus-uuidgen --ensure=/etc/machine-id \
-    && mkdir -p /var/lib/dbus \
-    && dbus-uuidgen --ensure
+	
+RUN rm -f /etc/machine-id && dbus-uuidgen --ensure=/etc/machine-id
 
 COPY etc/entry.sh "${HOMEDIR}/entry.sh"
 COPY etc/DedicatedServerConfig_Sample.json "/etc/DedicatedServerConfig_Sample.json"
