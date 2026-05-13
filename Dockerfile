@@ -27,8 +27,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	curl \
 	jq \
 	locales \
-	lib32gcc-s1
-	# Wine for wineboot initialization
+	lib32gcc-s1 \
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 	
