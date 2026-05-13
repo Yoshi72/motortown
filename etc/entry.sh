@@ -174,7 +174,16 @@ mkdir -p "${STEAMAPPDIR}/logs"
 
 
 detect_proton
-echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
+echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"# Proton-specific optimizations
+export PROTON_NO_FSYNC=1
+export PROTON_NO_ESYNC=1
+export PROTON_USE_XALIA=0
+# Disable NVIDIA API
+export PROTON_DISABLE_NVAPI=1
+# Disable NGX updater
+export PROTON_ENABLE_NGX_UPDATER=0
+# Prevents DXVK from initializing Vulkan in GPU-less containers.
+export PROTON_NO_D3D11=1
 export STEAM_COMPAT_CLIENT_INSTALL_PATH=${STEAMAPPDIR}/.compatdata2
 export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}"
 eval "$PROTONPATH/proton run RunDedicatedServer.bat" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
