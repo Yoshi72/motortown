@@ -186,6 +186,9 @@ export PROTON_ENABLE_NGX_UPDATER=0
 export PROTON_NO_D3D11=1
 export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAMCMDDIR}"
 export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}/proton"
+export UMU_ID=0
+export SteamAppId="${STEAMAPPID}"
+export SteamGameId="${STEAMAPPID}"
 eval "$PROTONPATH/proton run MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe Jeju_World?listen? -server -log -useperfthreads" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
 eval "$PROTONPATH/proton waitforexitandrun MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe Jeju_World?listen? -server -log -useperfthreads" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
 
