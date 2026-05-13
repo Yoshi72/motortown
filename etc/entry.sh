@@ -113,13 +113,18 @@ if ! detect_proton; then
         | jq -r '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url' \
         | head -n 1)
 
+	if [[ -n "$download_url" ]]; then
+		download_url="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz"
+	fi
+
     if [[ -n "$download_url" ]]; then
         echo "Downloading from: $download_url"
         curl -sL "$download_url" | tar -xz -C "${STEAMAPPDIR}/compatibilitytools.d"
         echo "GE-Proton installed"
     else
         echo "Failed to get GE-Proton download URL"
-        exit 1
+
+		
     fi
 fi
 
