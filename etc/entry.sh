@@ -173,7 +173,8 @@ source "${STEAMAPPDIR}/pre.sh"
 
 detect_proton
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
-export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}/.compatdata"
+export STEAM_COMPAT_CLIENT_INSTALL_PATH=${STEAMAPPDIR}/.compatdata2
+export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}"
 $PROTONPATH/proton run RunDedicatedServer.bat
 #eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
 
