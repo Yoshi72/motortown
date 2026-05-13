@@ -186,7 +186,8 @@ export PROTON_ENABLE_NGX_UPDATER=0
 export PROTON_NO_D3D11=1
 export STEAM_COMPAT_CLIENT_INSTALL_PATH="${STEAMCMDDIR}"
 export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}/.compatdata"
-eval "$PROTONPATH/proton run RunDedicatedServer.bat" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
+#eval "$PROTONPATH/proton run RunDedicatedServer.bat" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
+eval "$PROTONPATH/proton run MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe Jeju_World?listen? -server -log -useperfthreads" < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
 #eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
 
 # Post Hook
