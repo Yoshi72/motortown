@@ -50,7 +50,7 @@ if ! detect_proton; then
     log_error "GE-Proton not found!"
     log_info "Downloading latest GE-Proton..."
 
-    mkdir -p /root/.steam/steam/compatibilitytools.d
+    mkdir -p ${STEAMAPPDIR}/compatibilitytools.d
 
     # Get latest GE-Proton release
     download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
@@ -59,7 +59,7 @@ if ! detect_proton; then
 
     if [[ -n "$download_url" ]]; then
         log_info "Downloading from: $download_url"
-        curl -sL "$download_url" | tar -xz -C /root/.steam/steam/compatibilitytools.d
+        curl -sL "$download_url" | tar -xz -C ${STEAMAPPDIR}/compatibilitytools.d
         log_success "GE-Proton installed"
     else
         log_error "Failed to get GE-Proton download URL"
