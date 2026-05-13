@@ -45,6 +45,7 @@ if [[ $steamcmd_rc != 0 ]]; then
     exit $steamcmd_rc
 fi
 
+PROTONPATH=""
 detect_proton() {
     # Search for GE-Proton in compatibility tools directory
     local compat_dir="${STEAMAPPDIR}/compatibilitytools.d"
@@ -72,33 +73,6 @@ detect_proton() {
     return 1
 }
 
-get_proton_executable() {
-    local compat_dir="${STEAMAPPDIR}/compatibilitytools.d"
-
-    if [[ -d "$compat_dir" ]]; then
-        local proton_versions=($(find "$compat_dir" -maxdepth 1 -type d -name "GE-Proton*" | sort -V))
-
-        if [[ ${#proton_versions[@]} -gt 0 ]]; then
-            echo "${proton_versions[-1]}/proton"
-            return 0
-        fi
-    fi
-
-    # Fallback: check system Proton
-    if [[ -f "/usr/bin/proton" ]]; then
-        echo "/usr/bin/proton"
-        return 0
-    fi
-
-    return 1
-}
-
-# Export PROTONPATH for use in other scripts
-export_proton_path() {
-    detect_proton
-    export PROTONPATH
-}
-
 echo "Checking GE-Proton installation..."
 local download_url=""
 if ! detect_proton; then
@@ -106,19 +80,8 @@ if ! detect_proton; then
     echo "Downloading latest GE-Proton..."
 
     mkdir -p "${STEAMAPPDIR}/compatibilitytools.d"
-	echo "Compat folder created"
-
-    # Get latest GE-Proton release
-    download_url=$(curl -sL https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest \
-        | jq -r '.assets[] | select(.name | endswith(".tar.gz")) | .browser_download_url' \
-        | head -n 1)
-
-	if [[ -n "$download_url" ]]; then
-		download_url="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz"
-	fi
-
-	echo "Download url: $download_url"
 	download_url="https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz"
+
     if [[ -n "$download_url" ]]; then
         echo "Downloading from: $download_url"
         curl -sL "$download_url" | tar -xz -C "${STEAMAPPDIR}/compatibilitytools.d"
@@ -126,8 +89,6 @@ if ! detect_proton; then
     else
         echo "Failed to get GE-Proton download URL"
     fi
-
-	echo "Proton path: $PROTONPATH"
 fi
 
 # steamclient.so fix
@@ -210,8 +171,11 @@ source "${STEAMAPPDIR}/pre.sh"
 
 # Start Server
 
+detect_proton
 echo "Starting MotorTown Dedicated Server - ${SERVER_HOSTNAME}"
-eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
+export STEAM_COMPAT_DATA_PATH="${STEAMAPPDIR}/.compatdata"
+$PROTONPATH/proton run RunDedicatedServer.bat
+#eval bash "${STEAMCMDDIR}/steamcmd.sh" "${STEAMCMD_SPEW}" +@sSteamCmdForcePlatformType windows +app_run "${STEAMAPPID}"
 
 # Post Hook
 source "${STEAMAPPDIR}/post.sh"
