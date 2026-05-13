@@ -24,6 +24,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
+RUN rm -f /etc/machine-id /var/lib/dbus/machine-id \
+    && dbus-uuidgen --ensure=/etc/machine-id \
+    && mkdir -p /var/lib/dbus \
+    && dbus-uuidgen --ensure
+
 COPY etc/entry.sh "${HOMEDIR}/entry.sh"
 COPY etc/DedicatedServerConfig_Sample.json "/etc/DedicatedServerConfig_Sample.json"
 COPY etc/pre.sh "/etc/pre.sh"
