@@ -123,9 +123,9 @@ if ! detect_proton; then
         echo "GE-Proton installed"
     else
         echo "Failed to get GE-Proton download URL"
-
-		
     fi
+
+	echo "Proton path: $PROTONPATH"
 fi
 
 # steamclient.so fix
