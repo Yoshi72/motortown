@@ -27,6 +27,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     file \
     cron \
+    # Wine for wineboot initialization
+    wine64 \
+    wine32 \
+    winbind \
 	# Wine for wineboot initialization
 	&& rm -rf /var/lib/apt/lists/* \
     && apt-get clean
