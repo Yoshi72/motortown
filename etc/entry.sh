@@ -190,7 +190,7 @@ export UMU_ID=0
 export SteamAppId="${STEAMAPPID}"
 export SteamGameId="${STEAMAPPID}"
 eval "$PROTONPATH/proton" run "${STEAMAPPDIR}/MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe" Jeju_World?listen? -server -log -useperfthreads < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
-eval "$PROTONPATH/proton" waitforexitandrun "${STEAMAPPDIR}/MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe" Jeju_World?listen? -server -log -useperfthreads < /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
+#eval "$PROTONPATH/proton" waitforexitandrun "${STEAMAPPDIR}/MotorTown/Binaries/Win64/MotorTownServer-Win64-Shipping.exe" Jeju_World?listen? -server -log -useperfthreads -Port=7777 -QueryPort=27015 -MultiHome=""< /dev/null 2>&1 | tee -a "${STEAMAPPDIR}/logs/server.log"
 
 # Post Hook
 source "${STEAMAPPDIR}/post.sh"
